@@ -53,9 +53,9 @@ export class Whisper {
     const bounds = this.baseWindow.getBounds();
     this.webContentsView.setBounds({
       x: 0,
-      y: bounds.height - 88,
+      y: bounds.height - 256,
       width: bounds.width,
-      height: 88,
+      height: 256,
     });
   }
 
