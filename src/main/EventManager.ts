@@ -240,6 +240,14 @@ export class EventManager {
       );
     }
 
+    // Send to whisper
+    if (this.mainWindow.whisper.view.webContents !== sender) {
+      this.mainWindow.whisper.view.webContents.send(
+        "dark-mode-updated",
+        isDarkMode
+      );
+    }
+
     // Send to all tabs
     this.mainWindow.allTabs.forEach((tab) => {
       if (tab.webContents !== sender) {

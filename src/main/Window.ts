@@ -2,6 +2,7 @@ import { BaseWindow, shell } from "electron";
 import { Tab } from "./Tab";
 import { TopBar } from "./TopBar";
 import { SideBar } from "./SideBar";
+import { Whisper } from "./Whisper";
 
 export class Window {
   private _baseWindow: BaseWindow;
@@ -10,6 +11,7 @@ export class Window {
   private tabCounter: number = 0;
   private _topBar: TopBar;
   private _sideBar: SideBar;
+  private _whisper: Whisper;
 
   constructor() {
     // Create the browser window.
@@ -33,12 +35,15 @@ export class Window {
 
     // Create the first tab
     this.createTab();
+    
+    this._whisper = new Whisper(this._baseWindow);
 
     // Set up window resize handler
     this._baseWindow.on("resize", () => {
       this.updateTabBounds();
       this._topBar.updateBounds();
       this._sideBar.updateBounds();
+      this._whisper.updateBounds();
       // Notify renderer of resize through active tab
       const bounds = this._baseWindow.getBounds();
       if (this.activeTab) {
@@ -259,6 +264,10 @@ export class Window {
   // Getter for topBar to access from main process
   get topBar(): TopBar {
     return this._topBar;
+  }
+
+  get whisper(): Whisper {
+    return this._whisper;
   }
 
   // Getter for all tabs as array
