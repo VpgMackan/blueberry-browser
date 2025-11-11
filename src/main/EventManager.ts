@@ -16,6 +16,9 @@ export class EventManager {
     // Sidebar events
     this.handleSidebarEvents();
 
+    // Whisper events
+    this.handleWhisperEvents();
+
     // Page content events
     this.handlePageContentEvents();
 
@@ -172,6 +175,14 @@ export class EventManager {
     // Get messages
     ipcMain.handle("sidebar-get-messages", () => {
       return this.mainWindow.sidebar.client.getMessages();
+    });
+  }
+
+  private handleWhisperEvents(): void {
+    ipcMain.handle("toggle-microphone", () => {
+      this.mainWindow.whisper.toggle();
+      this.mainWindow.updateAllBounds();
+      return true;
     });
   }
 

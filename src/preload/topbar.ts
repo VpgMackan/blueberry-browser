@@ -29,8 +29,9 @@ const topBarAPI = {
     electronAPI.ipcRenderer.invoke("tab-run-js", tabId, code),
 
   // Sidebar
-  toggleSidebar: () =>
-    electronAPI.ipcRenderer.invoke("toggle-sidebar"),
+  toggleSidebar: () => electronAPI.ipcRenderer.invoke("toggle-sidebar"),
+
+  toggleMicrophone: () => electronAPI.ipcRenderer.invoke("toggle-microphone"),
 };
 
 // Use `contextBridge` APIs to expose Electron APIs to

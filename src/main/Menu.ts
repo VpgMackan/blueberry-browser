@@ -63,6 +63,11 @@ export class AppMenu {
           },
           { type: "separator" },
           {
+            label: "Toggle Microphone",
+            accelerator: "CmdOrCtrl+W",
+            click: () => this.handleToggleMicrophone(),
+          },
+          {
             label: "Toggle Sidebar",
             accelerator: "CmdOrCtrl+E",
             click: () => this.handleToggleSidebar(),
@@ -124,6 +129,11 @@ export class AppMenu {
     if (this.mainWindow.activeTab) {
       this.mainWindow.activeTab.webContents.reloadIgnoringCache();
     }
+  }
+
+  private handleToggleMicrophone(): void {
+    this.mainWindow.whisper.toggle();
+    this.mainWindow.updateAllBounds();
   }
 
   private handleToggleSidebar(): void {
