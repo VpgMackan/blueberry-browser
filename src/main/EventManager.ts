@@ -179,6 +179,11 @@ export class EventManager {
   }
 
   private handleWhisperEvents(): void {
+    ipcMain.handle("transcription-audio-message", async (_, request) => {
+      // The LLMClient now handles getting the screenshot and context directly
+      await this.mainWindow.whisper.client.sendTranscriptionRequest(request);
+    });
+
     ipcMain.handle("toggle-microphone", () => {
       this.mainWindow.whisper.toggle();
       this.mainWindow.updateAllBounds();

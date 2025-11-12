@@ -1,12 +1,12 @@
 import { is } from "@electron-toolkit/utils";
 import { BaseWindow, WebContentsView } from "electron";
 import { join } from "path";
-import { LLMClient } from "./LLMClient";
+import { TranscriptionClient } from "./STTClient";
 
 export class Whisper {
   private webContentsView: WebContentsView;
   private baseWindow: BaseWindow;
-  private llmClient: LLMClient;
+  private transcriptionClient: TranscriptionClient;
   private isVisible: boolean = false;
 
   constructor(baseWindow: BaseWindow) {
@@ -16,7 +16,9 @@ export class Whisper {
     this.setupBounds();
 
     // Initialize LLM client
-    this.llmClient = new LLMClient(this.webContentsView.webContents);
+    this.transcriptionClient = new TranscriptionClient(
+      this.webContentsView.webContents
+    );
   }
 
   private createWebContentsView(): WebContentsView {
@@ -99,7 +101,7 @@ export class Whisper {
     return this.webContentsView;
   }
 
-  get client(): LLMClient {
-    return this.llmClient;
+  get client(): TranscriptionClient {
+    return this.transcriptionClient;
   }
 }
